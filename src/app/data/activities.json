@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "name": "Workout",
+    "emoji": "💪",
+    "rewards": {
+      "muscles": 5,
+      "flex": 2
+    }
+  },
+  {
+    "id": 2,
+    "name": "Coder 30 minutes",
+    "emoji": "💻",
+    "rewards": {
+      "code": 5
+    }
+  },
+  {
+    "id": 3,
+    "name": "Travailler",
+    "emoji": "💵",
+    "rewards": {
+      "money": 5
+    }
+  },
+  {
+    "id": 4,
+    "name": "Étirements",
+    "emoji": "🧘",
+    "rewards": {
+      "flex": 5,
+      "muscles": 1
+    }
+  }
+]

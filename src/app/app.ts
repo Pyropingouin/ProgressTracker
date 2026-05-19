@@ -1,14 +1,18 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { FormsModule } from "@angular/forms";
+
+import { Activity } from "./models/activity.model";
+import activitiesData from "./data/activities.json";
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  selector: "app-root",
+  imports: [RouterOutlet, FormsModule],
+  templateUrl: "./app.html",
+  styleUrl: "./app.css",
 })
 export class App {
-  protected readonly title = signal('ProgressTracker');
+  protected readonly title = signal("ProgressTracker");
 
   maxProgress: number = 100;
 
@@ -36,5 +40,14 @@ export class App {
 
   increaseMoney(amount: number): void {
     this.money = Math.min(this.money + amount, this.maxProgress);
+  }
+
+  activities: Activity[] = activitiesData;
+  selectedActivityId: number | null = null;
+
+  get selectedActivity(): Activity | undefined {
+    return this.activities.find(
+      (activity) => activity.id === this.selectedActivityId,
+    );
   }
 }
