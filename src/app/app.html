@@ -1,0 +1,43 @@
+<h1>Progress Bar</h1>
+
+<div class="progress-item">
+  <h2>Flex 🧘🏻‍♀️ {{ flex }} / {{ maxProgress }}</h2>
+  <progress [value]="flex" [max]="maxProgress"></progress>
+
+  <input class="amount-input" #flexAmount type="number" value="5" />
+
+  <button (click)="increaseMuscles(+flexAmount.value)">Update</button>
+</div>
+
+<div class="progress-item">
+  <h2>Muscles 💪 {{ muscles }} / {{ maxProgress }}</h2>
+  <progress [value]="muscles" [max]="maxProgress"></progress>
+  <input class="amount-input" #muscleAmount type="number" value="5" />
+
+  <button (click)="increaseMuscles(+muscleAmount.value)">Update</button>
+</div>
+
+<div class="progress-item">
+  <h2>Code 💻 {{ code }} / {{ maxProgress }}</h2>
+  <progress [value]="code" [max]="maxProgress"></progress>
+
+  <input class="amount-input" #codeAmount type="number" value="5" />
+
+  <button (click)="increaseMuscles(+codeAmount.value)">Update</button>
+</div>
+
+<div class="progress-item">
+  <h2>Smut 🌶️ {{ smut }} / {{ maxProgress }}</h2>
+  <progress [value]="smut" [max]="maxProgress"></progress>
+  <input class="amount-input" #smutAmount type="number" value="5" />
+
+  <button (click)="increaseMuscles(+smutAmount.value)">Update</button>
+</div>
+
+<div class="progress-item">
+  <h2>Money 💵 {{ money }} / {{ maxProgress }}</h2>
+  <progress [value]="money" [max]="maxProgress"></progress>
+  <input class="amount-input" #moneyAmount type="number" value="5" />
+
+  <button (click)="increaseMuscles(+moneyAmount.value)">Update</button>
+</div>
