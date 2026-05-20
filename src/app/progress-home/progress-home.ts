@@ -1,7 +1,8 @@
 import { Component, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+
 import { Activity } from "../models/activity.model";
-import activitiesData from "../data/activities.json";
+import { ActivityService } from "../services/activity.service";
 
 @Component({
   selector: "app-progress-home",
@@ -19,6 +20,13 @@ export class ProgressHome {
   code: number = 0;
   smut: number = 0;
   money: number = 0;
+
+  activities: Activity[] = [];
+  selectedActivityId: number | null = null;
+
+  constructor(private activityService: ActivityService) {
+    this.activities = this.activityService.getActivities();
+  }
 
   addActivity(activityID: number): void {
     const activity = this.activities.find(
@@ -55,12 +63,11 @@ export class ProgressHome {
     );
   }
 
-  activities: Activity[] = activitiesData;
-  selectedActivityId: number | null = null;
-
   get selectedActivity(): Activity | undefined {
-    return this.activities.find(
-      (activity) => activity.id === this.selectedActivityId,
-    );
+    if (this.selectedActivityId === null) {
+      return undefined;
+    }
+
+    return this.activityService.getActivityById(this.selectedActivityId);
   }
 }

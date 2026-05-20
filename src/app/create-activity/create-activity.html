@@ -1,1 +1,26 @@
-<p>create-activity works!</p>
+<label for="activity">Choisir une activité :</label>
+
+<select id="activity" [(ngModel)]="selectedActivityId">
+  <option [ngValue]="null">-- Sélectionne une activité --</option>
+
+  @for (activity of activities; track activity.id) {
+  <option [ngValue]="activity.id">
+    {{ activity.emoji }} {{ activity.name }}
+  </option>
+  }
+</select>
+@if (selectedActivity) {
+<div class="activity-preview">
+  <h3>{{ selectedActivity.emoji }} {{ selectedActivity.name }}</h3>
+
+  <p>Muscles : {{ selectedActivity.rewards.muscles ?? 0 }}</p>
+  <p>Flex : {{ selectedActivity.rewards.flex ?? 0 }}</p>
+  <p>Code : {{ selectedActivity.rewards.code ?? 0 }}</p>
+  <p>Smut : {{ selectedActivity.rewards.smut ?? 0 }}</p>
+  <p>Money : {{ selectedActivity.rewards.money ?? 0 }}</p>
+</div>
+
+<button (click)="deleteActivity(+selectedActivity.id)">
+  Delete this activity
+</button>
+}
