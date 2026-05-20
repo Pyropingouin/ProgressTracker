@@ -21,6 +21,7 @@ export class ProgressHome {
   smut: number = 0;
   money: number = 0;
 
+  // Trouver comment update activity à chaque changement
   activities: Activity[] = [];
   selectedActivityId: number | null = null;
 
