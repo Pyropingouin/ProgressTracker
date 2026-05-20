@@ -1,0 +1,24 @@
+.page-layout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.left-section,
+.right-section {
+  width: 50%;
+}
+
+.progress-item {
+  margin-bottom: 20px;
+}
+
+progress {
+  width: 100%;
+  height: 24px;
+}
+
+select {
+  margin: 0 8px;
+  padding: 6px;
+}

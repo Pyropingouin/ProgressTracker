@@ -1,0 +1,62 @@
+<div class="page-layout">
+  <section class="left-section">
+    <h1>Progress Bar</h1>
+
+    <div class="progress-item">
+      <h2>Flex 🧘🏻‍♀️ {{ flex }} / {{ maxProgress }}</h2>
+      <progress [value]="flex" [max]="maxProgress"></progress>
+    </div>
+
+    <div class="progress-item">
+      <h2>Muscles 💪 {{ muscles }} / {{ maxProgress }}</h2>
+      <progress [value]="muscles" [max]="maxProgress"></progress>
+    </div>
+
+    <div class="progress-item">
+      <h2>Code 💻 {{ code }} / {{ maxProgress }}</h2>
+      <progress [value]="code" [max]="maxProgress"></progress>
+    </div>
+
+    <div class="progress-item">
+      <h2>Smut 🌶️ {{ smut }} / {{ maxProgress }}</h2>
+      <progress [value]="smut" [max]="maxProgress"></progress>
+    </div>
+
+    <div class="progress-item">
+      <h2>Money 💵 {{ money }} / {{ maxProgress }}</h2>
+      <progress [value]="money" [max]="maxProgress"></progress>
+    </div>
+  </section>
+
+  <section class="right-section">
+    <h1>Activities</h1>
+
+    <label for="activity">Choisir une activité :</label>
+
+    <select id="activity" [(ngModel)]="selectedActivityId">
+      <option [ngValue]="null">-- Sélectionne une activité --</option>
+
+      @for (activity of activities; track activity.id) {
+      <option [ngValue]="activity.id">
+        {{ activity.emoji }} {{ activity.name }}
+      </option>
+      }
+    </select>
+
+    @if (selectedActivity) {
+    <div class="activity-preview">
+      <h3>{{ selectedActivity.emoji }} {{ selectedActivity.name }}</h3>
+
+      <p>Muscles : {{ selectedActivity.rewards.muscles ?? 0 }}</p>
+      <p>Flex : {{ selectedActivity.rewards.flex ?? 0 }}</p>
+      <p>Code : {{ selectedActivity.rewards.code ?? 0 }}</p>
+      <p>Smut : {{ selectedActivity.rewards.smut ?? 0 }}</p>
+      <p>Money : {{ selectedActivity.rewards.money ?? 0 }}</p>
+    </div>
+
+    <button (click)="addActivity(+selectedActivity.id)">
+      Add this activity
+    </button>
+    }
+  </section>
+</div>
