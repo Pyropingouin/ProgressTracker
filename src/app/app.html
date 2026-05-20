@@ -1,81 +1,62 @@
-<h1>Progress Bar</h1>
+<div class="page-layout">
+  <section class="left-section">
+    <h1>Progress Bar</h1>
 
-<div class="progress-item">
-  <h2>Flex 🧘🏻‍♀️ {{ flex }} / {{ maxProgress }}</h2>
-  <progress [value]="flex" [max]="maxProgress"></progress>
+    <div class="progress-item">
+      <h2>Flex 🧘🏻‍♀️ {{ flex }} / {{ maxProgress }}</h2>
+      <progress [value]="flex" [max]="maxProgress"></progress>
+    </div>
 
-  <input class="amount-input" #flexAmount type="number" value="5" />
+    <div class="progress-item">
+      <h2>Muscles 💪 {{ muscles }} / {{ maxProgress }}</h2>
+      <progress [value]="muscles" [max]="maxProgress"></progress>
+    </div>
 
-  <button (click)="increaseFlex(+flexAmount.value)">Update</button>
+    <div class="progress-item">
+      <h2>Code 💻 {{ code }} / {{ maxProgress }}</h2>
+      <progress [value]="code" [max]="maxProgress"></progress>
+    </div>
+
+    <div class="progress-item">
+      <h2>Smut 🌶️ {{ smut }} / {{ maxProgress }}</h2>
+      <progress [value]="smut" [max]="maxProgress"></progress>
+    </div>
+
+    <div class="progress-item">
+      <h2>Money 💵 {{ money }} / {{ maxProgress }}</h2>
+      <progress [value]="money" [max]="maxProgress"></progress>
+    </div>
+  </section>
+
+  <section class="right-section">
+    <h1>Activities</h1>
+
+    <label for="activity">Choisir une activité :</label>
+
+    <select id="activity" [(ngModel)]="selectedActivityId">
+      <option [ngValue]="null">-- Sélectionne une activité --</option>
+
+      @for (activity of activities; track activity.id) {
+      <option [ngValue]="activity.id">
+        {{ activity.emoji }} {{ activity.name }}
+      </option>
+      }
+    </select>
+
+    @if (selectedActivity) {
+    <div class="activity-preview">
+      <h3>{{ selectedActivity.emoji }} {{ selectedActivity.name }}</h3>
+
+      <p>Muscles : {{ selectedActivity.rewards.muscles ?? 0 }}</p>
+      <p>Flex : {{ selectedActivity.rewards.flex ?? 0 }}</p>
+      <p>Code : {{ selectedActivity.rewards.code ?? 0 }}</p>
+      <p>Smut : {{ selectedActivity.rewards.smut ?? 0 }}</p>
+      <p>Money : {{ selectedActivity.rewards.money ?? 0 }}</p>
+    </div>
+
+    <button (click)="addActivity(+selectedActivity.id)">
+      Add this activity
+    </button>
+    }
+  </section>
 </div>
-
-<div class="progress-item">
-  <h2>Muscles 💪 {{ muscles }} / {{ maxProgress }}</h2>
-  <progress [value]="muscles" [max]="maxProgress"></progress>
-  <input class="amount-input" #muscleAmount type="number" value="5" />
-
-  <button (click)="increaseMuscles(+muscleAmount.value)">Update</button>
-</div>
-
-<div class="progress-item">
-  <h2>Code 💻 {{ code }} / {{ maxProgress }}</h2>
-  <progress [value]="code" [max]="maxProgress"></progress>
-
-  <input class="amount-input" #codeAmount type="number" value="5" />
-
-  <button (click)="increaseCode(+codeAmount.value)">Update</button>
-</div>
-
-<div class="progress-item">
-  <h2>Smut 🌶️ {{ smut }} / {{ maxProgress }}</h2>
-  <progress [value]="smut" [max]="maxProgress"></progress>
-  <input class="amount-input" #smutAmount type="number" value="5" />
-
-  <button (click)="increaseSmut(+smutAmount.value)">Update</button>
-</div>
-
-<div class="progress-item">
-  <h2>Money 💵 {{ money }} / {{ maxProgress }}</h2>
-  <progress [value]="money" [max]="maxProgress"></progress>
-  <input class="amount-input" #moneyAmount type="number" value="5" />
-
-  <button (click)="increaseMoney(+moneyAmount.value)">Update</button>
-</div>
-
-<h1>Activities</h1>
-<!-- 
-@for (activity of activities; track activity.id) {
-<div class="activity-card">
-  <h3>{{ activity.emoji }} {{ activity.name }}</h3>
-
-  <p>
-    Muscles: {{ activity.rewards.muscles ?? 0 }}, Flex: {{ activity.rewards.flex
-    ?? 0 }}, Code: {{ activity.rewards.code ?? 0 }}, Smut: {{
-    activity.rewards.smut ?? 0 }}, Money: {{ activity.rewards.money ?? 0 }}
-  </p>
-</div>
-} -->
-
-<label for="activity">Choisir une activité :</label>
-
-<select id="activity" [(ngModel)]="selectedActivityId">
-  <option [ngValue]="null">-- Sélectionne une activité --</option>
-
-  @for (activity of activities; track activity.id) {
-  <option [ngValue]="activity.id">
-    {{ activity.emoji }} {{ activity.name }}
-  </option>
-  }
-</select>
-
-@if (selectedActivity) {
-<div class="activity-preview">
-  <h3>{{ selectedActivity.emoji }} {{ selectedActivity.name }}</h3>
-
-  <p>Muscles : {{ selectedActivity.rewards.muscles ?? 0 }}</p>
-  <p>Flex : {{ selectedActivity.rewards.flex ?? 0 }}</p>
-  <p>Code : {{ selectedActivity.rewards.code ?? 0 }}</p>
-  <p>Smut : {{ selectedActivity.rewards.smut ?? 0 }}</p>
-  <p>Money : {{ selectedActivity.rewards.money ?? 0 }}</p>
-</div>
-}

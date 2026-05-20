@@ -22,24 +22,39 @@ export class App {
   smut: number = 0;
   money: number = 0;
 
-  increaseMuscles(amount: number): void {
-    this.muscles = Math.min(this.muscles + amount, this.maxProgress);
-  }
+  addActivity(activityID: number): void {
+    const activity = this.activities.find(
+      (activity) => activity.id === activityID,
+    );
 
-  increaseFlex(amount: number): void {
-    this.flex = Math.min(this.flex + amount, this.maxProgress);
-  }
+    if (!activity) {
+      return;
+    }
 
-  increaseCode(amount: number): void {
-    this.code = Math.min(this.code + amount, this.maxProgress);
-  }
+    this.muscles = Math.min(
+      this.muscles + (activity.rewards.muscles ?? 0),
+      this.maxProgress,
+    );
 
-  increaseSmut(amount: number): void {
-    this.smut = Math.min(this.smut + amount, this.maxProgress);
-  }
+    this.flex = Math.min(
+      this.flex + (activity.rewards.flex ?? 0),
+      this.maxProgress,
+    );
 
-  increaseMoney(amount: number): void {
-    this.money = Math.min(this.money + amount, this.maxProgress);
+    this.code = Math.min(
+      this.code + (activity.rewards.code ?? 0),
+      this.maxProgress,
+    );
+
+    this.smut = Math.min(
+      this.smut + (activity.rewards.smut ?? 0),
+      this.maxProgress,
+    );
+
+    this.money = Math.min(
+      this.money + (activity.rewards.money ?? 0),
+      this.maxProgress,
+    );
   }
 
   activities: Activity[] = activitiesData;
