@@ -1,5 +1,4 @@
 <label for="activity">Choisir une activité :</label>
-
 <select
   id="activity"
   [(ngModel)]="selectedActivityId"
@@ -36,3 +35,11 @@
   Update this activity
 </button>
 }
+
+
+
+<button (click)="onOpenCreateActivity()">Create an activity</button>
+
+@if (isOpenActivity) {
+<h1>ALLO</h1>
+} 

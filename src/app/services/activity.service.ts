@@ -23,7 +23,7 @@ export class ActivityService {
     return this.activities.find((activity) => activity.id === id);
   }
 
-  addActivity(activity: Activity): void {
+  createActivity(activity: Activity): void {
     this.activities.push(activity);
     this.saveActivities();
   }

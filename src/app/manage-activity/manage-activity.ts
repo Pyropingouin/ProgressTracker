@@ -1,16 +1,16 @@
 import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { Activity } from "../models/activity.model";
+import { Activity, Rewards } from "../models/activity.model";
 import activitiesData from "../data/activities.json";
 import { ActivityService } from "../services/activity.service";
 
 @Component({
-  selector: "app-create-activity",
+  selector: "app-manage-activity",
   imports: [FormsModule],
-  templateUrl: "./create-activity.html",
-  styleUrl: "./create-activity.css",
+  templateUrl: "./manage-activity.html",
+  styleUrl: "./manage-activity.css",
 })
-export class CreateActivity {
+export class ManageActivity {
   // Trouver comment update activity à chaque changement
 
   muscleAmount: number = 0;
@@ -19,22 +19,39 @@ export class CreateActivity {
   smutAmount: number = 0;
   moneyAmount: number = 0;
 
+  newActivityMuscleReward: number = 0;
+  newActivityFlexReward: number = 0;
+  newActivityCodeReward: number = 0;
+  newActivitySmutReward: number = 0;
+  newActivityMoneyReward: number = 0;
+
+  newActivityId: number = 1;
+  newActivityName: string = "";
+  newActivityEmoji: string = "🟢";
+
   activities: Activity[] = activitiesData;
   selectedActivityId: number | null = null;
 
+  isOpenActivity: boolean = false;
+
   constructor(private activityService: ActivityService) {
     this.activities = this.activityService.getActivities();
+  }
+
+  get selectedActivity(): Activity | undefined {
+    if (this.selectedActivityId === null) {
+      return undefined;
+    }
+    return this.activityService.getActivityById(this.selectedActivityId);
   }
 
   deleteActivity(activityID: number): void {
     const activity = this.activities.find(
       (activity) => activity.id === activityID,
     );
-
     if (!activity) {
       return;
     }
-
     this.activityService.deleteActivity(activity.id);
     this.activities = this.activityService.getActivities();
     this.selectedActivityId = null;
@@ -60,12 +77,24 @@ export class CreateActivity {
     this.activities = this.activityService.getActivities();
   }
 
-  get selectedActivity(): Activity | undefined {
-    if (this.selectedActivityId === null) {
-      return undefined;
-    }
+  createActivity(): void {
+    const newRewards: Rewards = {
+      muscles: this.newActivityMuscleReward,
+      flex: this.newActivityFlexReward,
+      code: this.newActivityCodeReward,
+      smut: this.newActivitySmutReward,
+      money: this.newActivityMoneyReward,
+    };
 
-    return this.activityService.getActivityById(this.selectedActivityId);
+    const newActivity: Activity = {
+      id: this.newActivityId,
+      name: this.newActivityName,
+      emoji: this.newActivityEmoji,
+      rewards: newRewards,
+    };
+
+    this.activityService.createActivity(newActivity);
+    this.activities = this.activityService.getActivities();
   }
 
   onActivitySelected(): void {
@@ -74,5 +103,9 @@ export class CreateActivity {
     this.codeAmount = this.selectedActivity?.rewards.code ?? 0;
     this.smutAmount = this.selectedActivity?.rewards.smut ?? 0;
     this.moneyAmount = this.selectedActivity?.rewards.money ?? 0;
+  }
+
+  onOpenCreateActivity(): void {
+    this.isOpenActivity = true;
   }
 }
